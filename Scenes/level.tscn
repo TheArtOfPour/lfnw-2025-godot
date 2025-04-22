@@ -101,6 +101,7 @@ sources/0 = SubResource("TileSetAtlasSource_wqkje")
 
 [node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0, 0)
+motion_mirroring = Vector2(648, 0)
 
 [node name="Back" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
 position = Vector2(410.4, 324)
@@ -109,6 +110,7 @@ texture = ExtResource("1_tumq0")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.5, 0.5)
+motion_mirroring = Vector2(648, 0)
 
 [node name="Far" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer2"]
 position = Vector2(341.333, 360)
@@ -117,6 +119,7 @@ texture = ExtResource("2_6phgx")
 
 [node name="ParallaxLayer3" type="ParallaxLayer" parent="ParallaxBackground"]
 motion_scale = Vector2(0.75, 0.75)
+motion_mirroring = Vector2(300, 0)
 
 [node name="Middle" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer3"]
 position = Vector2(368, 376)

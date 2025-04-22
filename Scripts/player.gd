@@ -9,7 +9,7 @@ var score = 0
 @onready var animated_sprite = $AnimatedSprite2D
 
 func _ready():
-	pass
+	add_to_group("player")
 
 func _physics_process(delta):
 	# Apply gravity
@@ -47,33 +47,33 @@ func _physics_process(delta):
 		position = Vector2(0, 0)
 
 
-## Called when player collects a coin
-#func collect_coin():
-	#score += 1
-	## Emit signal for UI to update
-	#emit_signal("score_changed", score)
-	## Play sound if you have one
-	#if has_node("CoinSound"):
-		#$CoinSound.play()
-#
-## Handle enemy collision
-#func _on_enemy_detector_body_entered(body):
-	#if body.is_in_group("enemies"):
-		#if velocity.y > 0:  # Falling onto enemy
-			## Bounce off enemy
-			#velocity.y = JUMP_VELOCITY * 0.5
-			## Tell enemy it was hit
-			#body.queue_free()
-		#else:
-			## Player hit by enemy - restart level
-			#position = get_parent().get_node("StartPosition").position
-#
+# Called when player collects a coin
+func collect_coin():
+	score += 1
+	# Emit signal for UI to update
+	emit_signal("score_changed", score)
+	# Play sound if you have one
+	if has_node("CoinSound"):
+		$CoinSound.play()
+
+# Handle enemy collision
+func _on_enemy_detector_body_entered(body):
+	if body.is_in_group("enemies"):
+		if velocity.y > 0:  # Falling onto enemy
+			# Bounce off enemy
+			velocity.y = JUMP_VELOCITY * 0.5
+			# Tell enemy it was hit
+			body.queue_free()
+		else:
+			# Player hit by enemy - restart level
+			position = get_parent().get_node("StartPosition").position
+
 ## Victory condition
 #func _on_goal_area_body_entered(body):
 	#if body == self:  # If player enters goal
 		#emit_signal("level_completed")
 		#set_physics_process(false)  # Freeze player
-#
-## Signals
-#signal score_changed(new_score)
+
+# Signals
+signal score_changed(new_score)
 #signal level_completed
