@@ -1,11 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bphnq5lhviq4s"]
+[gd_scene load_steps=3 format=3 uid="uid://bphnq5lhviq4s"]
 
 [ext_resource type="PackedScene" uid="uid://bkct7tuas3dt" path="res://Scenes/player.tscn" id="1_jjgbg"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jjgbg"]
-size = Vector2(1175, 47)
-
-[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://ccdgqmvbl1ulk" path="res://Scenes/level.tscn" id="2_bo1nx"]
 
 [node name="Node2D" type="Node2D"]
 
@@ -18,11 +14,4 @@ anchor_mode = 0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(577.5, 670.5)
-shape = SubResource("RectangleShape2D_jjgbg")
-
-[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
-position = Vector2(578.5, 907)
-scale = Vector2(2.29102, 1)
-texture = SubResource("NoiseTexture2D_jjgbg")
+[node name="Level" parent="." instance=ExtResource("2_bo1nx")]

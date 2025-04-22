@@ -6,12 +6,9 @@ const JUMP_VELOCITY = -600.0
 var gravity = 980
 var score = 0
 
-# Reference to animated sprite node
 @onready var animated_sprite = $AnimatedSprite2D
 
 func _ready():
-	# Add player to the player group for collision detection
-	#add_to_group("player")
 	pass
 
 func _physics_process(delta):
