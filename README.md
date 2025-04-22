@@ -7,7 +7,7 @@ This guide walks through creating a simple 2D platformer game using the Godot En
 
 ## Prerequisites
 
-- Godot Engine 4.2+ installed ([Download here](https://godotengine.org/download))
+- Godot Engine 4.4+ installed ([Download here](https://godotengine.org/download))
 - Basic understanding of programming concepts (variables, functions, conditionals)
 - Pre-made assets (provided in the workshop assets folder)
 
@@ -73,31 +73,31 @@ const JUMP_VELOCITY = -400.0
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _physics_process(delta):
-    # Add the gravity
-    if not is_on_floor():
-        velocity.y += gravity * delta
+	# Add the gravity
+	if not is_on_floor():
+		velocity.y += gravity * delta
 
-    # Handle jump
-    if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-        velocity.y = JUMP_VELOCITY
+	# Handle jump
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+		velocity.y = JUMP_VELOCITY
 
-    # Get the input direction
-    var direction = Input.get_axis("ui_left", "ui_right")
-    
-    # Handle movement and animation
-    if direction:
-        velocity.x = direction * SPEED
-        $Sprite2D.flip_h = direction < 0
-        $AnimationPlayer.play("run")
-    else:
-        velocity.x = move_toward(velocity.x, 0, SPEED)
-        if is_on_floor():
-            $AnimationPlayer.play("idle")
-    
-    if not is_on_floor():
-        $AnimationPlayer.play("jump")
+	# Get the input direction
+	var direction = Input.get_axis("ui_left", "ui_right")
+	
+	# Handle movement and animation
+	if direction:
+		velocity.x = direction * SPEED
+		$Sprite2D.flip_h = direction < 0
+		$AnimationPlayer.play("run")
+	else:
+		velocity.x = move_toward(velocity.x, 0, SPEED)
+		if is_on_floor():
+			$AnimationPlayer.play("idle")
+	
+	if not is_on_floor():
+		$AnimationPlayer.play("jump")
 
-    move_and_slide()
+	move_and_slide()
 ```
 
 3. Save the scene as `player.tscn`
@@ -140,11 +140,11 @@ extends Area2D
 signal coin_collected
 
 func _on_body_entered(body):
-    if body.is_in_group("player"):
-        emit_signal("coin_collected")
-        $AnimationPlayer.play("collect")
-        await $AnimationPlayer.animation_finished
-        queue_free()
+	if body.is_in_group("player"):
+		emit_signal("coin_collected")
+		$AnimationPlayer.play("collect")
+		await $AnimationPlayer.animation_finished
+		queue_free()
 ```
 
 6. Save as `coin.tscn`
@@ -165,25 +165,25 @@ var patrol_distance = 100
 var start_position
 
 func _ready():
-    start_position = global_position.x
-    add_to_group("enemies")
+	start_position = global_position.x
+	add_to_group("enemies")
 
 func _physics_process(delta):
-    # Patrol logic
-    if global_position.x > start_position + patrol_distance:
-        direction = -1
-        $Sprite2D.flip_h = true
-    elif global_position.x < start_position - patrol_distance:
-        direction = 1
-        $Sprite2D.flip_h = false
-    
-    velocity.x = direction * speed
-    
-    # Apply gravity
-    if not is_on_floor():
-        velocity.y += 980 * delta
-    
-    move_and_slide()
+	# Patrol logic
+	if global_position.x > start_position + patrol_distance:
+		direction = -1
+		$Sprite2D.flip_h = true
+	elif global_position.x < start_position - patrol_distance:
+		direction = 1
+		$Sprite2D.flip_h = false
+	
+	velocity.x = direction * speed
+	
+	# Apply gravity
+	if not is_on_floor():
+		velocity.y += 980 * delta
+	
+	move_and_slide()
 ```
 
 6. Save as `enemy.tscn`
@@ -203,18 +203,18 @@ extends Node2D
 var score = 0
 
 func _ready():
-    # Connect all coins' signals
-    for coin in get_tree().get_nodes_in_group("coins"):
-        coin.connect("coin_collected", _on_coin_collected)
-    
-    update_score_display()
+	# Connect all coins' signals
+	for coin in get_tree().get_nodes_in_group("coins"):
+		coin.connect("coin_collected", _on_coin_collected)
+	
+	update_score_display()
 
 func _on_coin_collected():
-    score += 1
-    update_score_display()
+	score += 1
+	update_score_display()
 
 func update_score_display():
-    $CanvasLayer/ScoreLabel.text = "Score: " + str(score)
+	$CanvasLayer/ScoreLabel.text = "Score: " + str(score)
 ```
 
 ### 5. Game Logic
@@ -232,22 +232,22 @@ func update_score_display():
 ```gdscript
 # Add to existing Player script
 func _on_hit_enemy(body):
-    if body.is_in_group("enemies"):
-        # If we're falling onto the enemy, defeat it
-        if velocity.y > 0:
-            body.queue_free()
-            velocity.y = JUMP_VELOCITY / 2
-        else:
-            # Player got hit
-            die()
+	if body.is_in_group("enemies"):
+		# If we're falling onto the enemy, defeat it
+		if velocity.y > 0:
+			body.queue_free()
+			velocity.y = JUMP_VELOCITY / 2
+		else:
+			# Player got hit
+			die()
 
 func die():
-    # Death animation
-    $AnimationPlayer.play("die")
-    await $AnimationPlayer.animation_finished
-    
-    # Respawn at checkpoint
-    global_position = get_parent().get_node("Checkpoint").global_position
+	# Death animation
+	$AnimationPlayer.play("die")
+	await $AnimationPlayer.animation_finished
+	
+	# Respawn at checkpoint
+	global_position = get_parent().get_node("Checkpoint").global_position
 ```
 
 #### Add Game UI
