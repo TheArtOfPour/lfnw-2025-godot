@@ -66,8 +66,8 @@ func _on_enemy_detector_body_entered(body):
 			body.queue_free()
 		else:
 			# Player hit by enemy - restart level
-			position = get_parent().get_node("StartPosition").position
-
+			position = Vector2(15, 20)
+#
 ## Victory condition
 #func _on_goal_area_body_entered(body):
 	#if body == self:  # If player enters goal

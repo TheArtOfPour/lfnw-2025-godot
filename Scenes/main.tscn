@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bphnq5lhviq4s"]
+[gd_scene load_steps=4 format=3 uid="uid://bphnq5lhviq4s"]
 
 [ext_resource type="PackedScene" uid="uid://bkct7tuas3dt" path="res://Scenes/player.tscn" id="1_jjgbg"]
 [ext_resource type="PackedScene" uid="uid://ccdgqmvbl1ulk" path="res://Scenes/level.tscn" id="2_bo1nx"]
-[ext_resource type="PackedScene" uid="uid://blspispdu6ln8" path="res://Scenes/coin.tscn" id="3_8gbba"]
 [ext_resource type="PackedScene" uid="uid://cconx66sbkvtd" path="res://Scenes/enemy.tscn" id="4_jjvhh"]
 
 [node name="Node2D" type="Node2D"]
@@ -15,12 +14,6 @@ position = Vector2(-200, -400)
 anchor_mode = 0
 
 [node name="Level" parent="." instance=ExtResource("2_bo1nx")]
-
-[node name="Coin" parent="." instance=ExtResource("3_8gbba")]
-position = Vector2(333, 567)
-
-[node name="Coin2" parent="." instance=ExtResource("3_8gbba")]
-position = Vector2(175, 624)
 
 [node name="Crab" parent="." instance=ExtResource("4_jjvhh")]
 position = Vector2(232, 635)
